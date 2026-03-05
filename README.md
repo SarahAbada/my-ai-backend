@@ -1,4 +1,4 @@
-# 🎬 Movie Sentiment Analyzer API
+# Sentiment Analyzer API
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green)](https://fastapi.tiangolo.com/)
