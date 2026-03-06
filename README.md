@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green)](https://fastapi.tiangolo.com/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4-orange)](https://scikit-learn.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-MIT-purple)](LICENSE)
 
 ## 🚀 Overview
@@ -18,6 +19,7 @@ This project solves the problem of understanding user feedback at scale, automat
     -   Multinomial Naive Bayes (current default)
     -   Linear Support Vector Machines (SVM)
     -   Logistic Regression
+    -   **PyTorch LSTM** (sequential deep-learning classifier)
 -   **📊 Data Visualization**: Built-in performance comparison tools using Matplotlib to visualize model accuracy and confusion matrices.
 -   **🛠️ Robust Preprocessing**: Efficient text vectorization using `CountVectorizer` to handle large vocabularies (IMDb dataset).
 
@@ -26,6 +28,7 @@ This project solves the problem of understanding user feedback at scale, automat
 -   **Language**: Python
 -   **API Framework**: FastAPI, Uvicorn
 -   **Machine Learning**: Scikit-Learn, Pandas, NumPy
+-   **Deep Learning**: PyTorch (LSTM classifier)
 -   **Visualization**: Matplotlib
 -   **Data Source**: IMDb Large Movie Review Dataset (50k+ reviews)
 
@@ -35,6 +38,18 @@ This project solves the problem of understanding user feedback at scale, automat
 
 -   Python 3.9+
 -   pip
+
+### Requirements
+
+The following key libraries are required (full list in `requirements.txt`):
+
+| Library | Purpose |
+|---------|---------|
+| `fastapi` | REST API framework |
+| `scikit-learn` | Baseline ML models & text vectorisation |
+| `torch>=2.0.0` | PyTorch LSTM deep-learning model |
+| `pandas` | Data loading and manipulation |
+| `matplotlib` | Accuracy comparison charts |
 
 ### Installation
 
@@ -57,10 +72,21 @@ This project solves the problem of understanding user feedback at scale, automat
 
 ### Running the App
 
-To train the model and start the analysis pipeline:
+To train **all** models (Naive Bayes, SVM, Logistic Regression, and LSTM) and compare their accuracy:
 
 ```bash
 python main.py
+```
+
+#### Running only the LSTM
+
+```python
+from lstm_model import train_lstm
+import pandas as pd
+
+data = pd.read_csv("data/reviews.csv")
+model, accuracy, vectorizer = train_lstm(data["text"], data["label"])
+print(f"LSTM Test Accuracy: {accuracy:.4f}")
 ```
 
 *Note: The current version runs a training benchmark on startup. API endpoints are under active development.*
@@ -72,10 +98,14 @@ python main.py
 | **Naive Bayes** | ~85% |
 | **Linear SVM** | ~89% |
 | **Logistic Regression** | ~88% |
+| **LSTM (PyTorch)** | ~90%+ |
+
+> Accuracy figures are estimates on the IMDb dataset. Run `python main.py` to generate an up-to-date `model_comparison.png` chart.
 
 ## 🔮 Future Improvements
 
--   [ ] **Deep Learning Integration**: Experimenting with LSTM/BERT for improved context understanding.
+-   [x] **Deep Learning Integration**: LSTM classifier implemented with PyTorch.
+-   [ ] **Transformer Models**: Experimenting with BERT for improved context understanding.
 -   [ ] **Dockerization**: Containerizing the application for easy cloud deployment.
 -   [ ] **CI/CD Pipeline**: Automating testing and linting with GitHub Actions.
 -   [ ] **User Frontend**: A simple React dashboard to visualize sentiment trends.
